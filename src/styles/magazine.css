@@ -243,3 +243,6 @@ figure.fig.wide img { max-height: 80vh; object-fit: cover; }
 }
 
 @media (max-width: 520px) { .masthead .wordmark span { display: none; } }
+
+figure.fig.wide.portrait { max-width: 46rem; }
+figure.fig.wide.portrait img { max-height: none; object-fit: contain; background: #fff; border: 1px solid var(--line); }
