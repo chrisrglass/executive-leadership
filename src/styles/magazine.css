@@ -183,6 +183,8 @@ p { margin: 0 0 1.1em; }
 .opener { display: grid; grid-template-columns: 1fr 1fr; min-height: 80svh; background: var(--maroon-dark); color: var(--white); }
 .opener .photo { position: relative; min-height: 50vh; }
 .opener .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.opener .photo.collage { display: flex; align-items: center; justify-content: center; background: var(--maroon-dark); }
+.opener .photo.collage img { position: static; height: auto; max-height: 100%; object-fit: contain; }
 .opener .photo .credit { position: absolute; right: 0.75rem; bottom: 0.5rem; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.85); background: rgba(31,9,10,0.55); padding: 0.2rem 0.5rem; }
 .opener .titling { display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4rem); }
 .opener .num { font-family: var(--display); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1; color: var(--gold); }

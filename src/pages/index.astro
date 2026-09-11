@@ -161,7 +161,7 @@ const canonical = new URL(`${base}/`, Astro.site).href;
     {featureSections.map(({ section, spec }, i) => (
       <article class="feature" id={section.id} data-section>
         <header class={`opener${i % 2 === 1 ? ' flip' : ''}`}>
-          <div class="photo">
+          <div class={`photo${spec.opener.format === 'collage' ? ' collage' : ''}`}>
             <Image src={images[spec.opener.src]} alt={spec.opener.alt} widths={[700, 1200, 1800]} sizes="(max-width: 800px) 100vw, 50vw" format="webp" quality={80} loading={i === 0 ? 'eager' : 'lazy'} />
             {spec.opener.credit && <span class="credit">{spec.opener.credit}</span>}
           </div>
