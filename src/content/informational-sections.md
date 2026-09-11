@@ -33,7 +33,7 @@ This year Cohort 3 defended and graduated, Cohort 6 brought new senior leaders i
 ## The long work of leading well
 This issue takes its theme from the phrase that now organizes much of my thinking: the long work of leading well. Higher education is under pressure to answer fast, to demographic decline, funding cuts, political scrutiny, and artificial intelligence, and answers made at that speed tend to serve the next quarter. The leadership this moment needs is strategic, future-focused, and for others: it reads the structure beneath the headline, thinks in decades rather than semesters, and takes its bearings from the students, faculty, and communities an institution exists to serve. It is formed over years, in relationships, and it holds up only if it is renewed.
 
-The students and alumni in these pages are leaders of that kind. They drafted state regulations, took up provostships and vice presidencies, opened routes for students who had none, and kept public records that institutions need. They did this work while advising one another, returning for residencies and coaching, and writing letters to a director who needed them. That is the long work, and it is the reason a community like this one exists.
+The students and alumni in these pages are leaders of that kind. They drafted state regulations, took up provostships and vice presidencies, opened routes for students who had none, and kept public records that institutions need. That is the long work of leading well, and it is the reason a community like this one exists.
 
 _Chris_
 # Who should join us next?

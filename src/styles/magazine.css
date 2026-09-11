@@ -248,7 +248,8 @@ figure.fig.wide.portrait { max-width: 46rem; }
 figure.fig.wide.portrait img { max-height: none; object-fit: contain; background: #fff; border: 1px solid var(--line); }
 
 /* Welcome piece */
-.welcome { background: var(--sage); }
+.welcome { background: var(--sage); padding-block: clamp(5rem, 12vw, 9rem); }
+.welcome .section-head { margin-bottom: 2.5rem; }
 .welcome .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); }
 .welcome .article { padding-top: 0; }
 .welcome figure.fig.right { max-width: 220px; }
