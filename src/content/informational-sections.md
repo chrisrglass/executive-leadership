@@ -13,8 +13,6 @@ Leadership shows in acts like these: colleagues who take on work you cannot do, 
 
 Alison and I are also, at last, in the home we have been building for almost four years, and we will welcome alumni there during the Annual Fall Retreat.
 ## Our global ‘school of thought’
-Care in this community runs both ways. The people we teach and advise also teach and sustain us.
-
 Across six cohorts, the Executive Ed.D. community now includes 89 students and alumni from more than 15 countries and regions across Africa, Asia, Europe, North America, South America, the Middle East, and Australia. They work at research universities, liberal arts colleges, art and design schools, theological institutions, community colleges, and law schools, as presidents, provosts, vice presidents, deans, directors, faculty members, and senior staff. Our community’s research runs across nine connected fields:
 
 - international higher education and global mobility;
