@@ -101,7 +101,7 @@ export const features: Record<string, Feature> = {
     deck: 'Defenses, residencies, alumni returns, coaching, and retreat carry formation beyond graduation.',
     opener: { src: 'cohort-3-graduation.jpeg', alt: 'Cohort 3 in maroon regalia at Boston College commencement', caption: 'Cohort 3 at Boston College commencement on May 18, 2026.', credit: 'Courtesy of Cohort 3', format: 'landscape' },
     inline: [
-      { after: 'Cohort 3: Carly Anderson', src: 'cohort-3-public-defenses-collage.jpg', alt: 'A collage of Cohort 3 members at their public defenses', caption: 'Cohort 3’s spring 2026 public defenses.', credit: 'Courtesy of Claire Johnson Allen', align: 'right', format: 'landscape' },
+      { after: 'Cohort 3: Carly Anderson', src: 'cohort-3-public-defenses-collage.jpg', alt: 'A collage of Cohort 3 members at their public defenses', caption: 'Cohort 3’s spring 2026 public defenses.', align: 'right', format: 'landscape' },
     ],
     closer: { src: 'alumni-engagement-programs-2026-27.png', alt: 'Annual Alumni Engagement Programs of the Executive Ed.D.: fall roundtable and two coaching sessions, spring coaching and roundtable, and an annual retreat. Roundtables are open, alumni-led sessions on consequential leadership challenges. Retreats are annual in-person gatherings to reflect on leadership, connect across cohorts, and renew the community. Coaching is a year-long, sign-up-based small-group experience for alumni.', caption: 'Annual alumni engagement programs, 2026–27.', align: 'wide', format: 'portrait' },
   },
