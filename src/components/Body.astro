@@ -1,0 +1,35 @@
+---
+import Figure from './Figure.astro';
+import { inline, plain, type Block } from '../lib/markdown';
+import type { InlineFigure } from '../lib/content-map';
+
+interface Props { blocks: Block[]; figures?: InlineFigure[]; headingLevel?: 'h3' | 'h4' }
+const { blocks, figures = [], headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+
+function figuresAfter(block: Block): InlineFigure[] {
+  if (block.kind !== 'paragraph') return [];
+  const text = plain(block.text);
+  return figures.filter((f) => text.startsWith(f.after));
+}
+const placed = new Set<string>();
+---
+{blocks.map((block) => {
+  if (block.kind === 'heading') return <H id={block.id} set:html={inline(block.text)} />;
+  if (block.kind === 'list') return <ul>{block.items.map((item) => <li set:html={inline(item)} />)}</ul>;
+  if (block.kind === 'rule') return <hr class="rule gold" />;
+  const figs = figuresAfter(block).filter((f) => !placed.has(f.src));
+  figs.forEach((f) => placed.add(f.src));
+  const leading = figs.filter((f) => f.align === 'left' || f.align === 'right');
+  const trailing = figs.filter((f) => !(f.align === 'left' || f.align === 'right'));
+  return (
+    <>
+      {leading.map((f) => <Figure fig={f} />)}
+      <p set:html={inline(block.text)} />
+      {trailing.map((f) => <Figure fig={f} />)}
+    </>
+  );
+})}
+{figures.filter((f) => !placed.has(f.src)).length > 0 && (
+  <p class="eyebrow" style="color:#b30000">Unplaced figures: {figures.filter((f) => !placed.has(f.src)).map((f) => f.src).join(', ')}</p>
+)}

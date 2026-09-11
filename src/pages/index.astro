@@ -1,0 +1,221 @@
+---
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import infoRaw from '../content/informational-sections.md?raw';
+import articlesRaw from '../content/articles.md?raw';
+import { Image, getImage } from 'astro:assets';
+import '../styles/magazine.css';
+import Body from '../components/Body.astro';
+import Figure from '../components/Figure.astro';
+import { images } from '../lib/images';
+import { parseMarkdown, sectionize, inline, plain } from '../lib/markdown';
+import { meta, cover, letter, invitation, features, featureOrder } from '../lib/content-map';
+
+const info = sectionize(parseMarkdown(infoRaw));
+const articles = sectionize(parseMarkdown(articlesRaw));
+const byTitle = new Map([...info, ...articles].map((s) => [s.title, s]));
+
+const state = byTitle.get('State of the Program');
+const invite = byTitle.get('Who should join us next?');
+if (!state || !invite) throw new Error('Letter or invitation section missing from informational-sections.md');
+// The signature paragraph (_Chris_) is rendered as an image, not text.
+const letterBlocks = state.blocks.filter((b) => !(b.kind === 'paragraph' && plain(b.text).trim() === 'Chris'));
+
+const featureSections = featureOrder.map((title) => {
+  const section = byTitle.get(title);
+  if (!section) throw new Error(`Article "${title}" missing from articles.md`);
+  return { section, spec: features[title] };
+});
+
+const navItems = [
+  { label: 'Letter', id: 'state-of-the-program' },
+  ...featureSections.map(({ section, spec }) => ({ label: `${spec.number} ${section.title}`, id: section.id })),
+  { label: 'Join us', id: 'who-should-join-us-next' },
+];
+
+const coverImage = await getImage({ src: images[cover.image], widths: [900, 1600, 2400], sizes: '100vw', format: 'webp', quality: 78 });
+const ogImage = await getImage({ src: images[cover.image], width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pdfHref = `${base}/executive-leadership-2026.pdf`;
+const hasPdf = existsSync(resolve(process.cwd(), 'public/executive-leadership-2026.pdf'));
+const canonical = new URL(`${base}/`, Astro.site).href;
+---
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{meta.masthead} · {meta.edition}</title>
+  <meta name="description" content={meta.description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={`${meta.masthead}: ${cover.theme.join(' ')}`} />
+  <meta property="og:description" content={meta.description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage.src, Astro.site).href} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#8a100b" />
+</head>
+<body>
+  <a class="skip-link" href="#state-of-the-program">Skip to the letter</a>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <header class="masthead">
+    <a href="#top" class="wordmark" aria-label={`${meta.masthead} home`}>
+      <span>{meta.institution} · {meta.program}</span>
+      <strong>{meta.masthead}</strong>
+    </a>
+    <nav id="nav" aria-label="Magazine sections">
+      {navItems.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+      <a class="external" href={meta.programUrl} target="_blank" rel="noopener">Executive Ed.D. ↗</a>
+    </nav>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </header>
+
+  <main id="top">
+    <section class="cover" aria-label="Cover">
+      <div class="bg"><img src={coverImage.src} srcset={coverImage.srcSet.attribute} sizes="100vw" alt="" fetchpriority="high" decoding="async" /></div>
+      <div class="scrim" aria-hidden="true"></div>
+      <div class="bar" aria-hidden="true"></div>
+      <div class="cover-top">
+        <div class="cover-masthead">
+          <h1>{meta.masthead.split(' ').map((w, i) => <>{i > 0 && <br />}{w}</>)}</h1>
+          <p class="edition">{meta.edition}</p>
+          <p class="program">{meta.institution} • {meta.program}</p>
+        </div>
+        <ul class="cover-teasers">
+          {cover.teasers.map((t) => <li><a href={t.href}><strong>{t.title}</strong><span>{t.blurb}</span></a></li>)}
+        </ul>
+      </div>
+      <div class="cover-theme">
+        <h2>{cover.theme[0]}<br />{cover.theme[1]}</h2>
+        <p>{cover.lede}</p>
+        <a class="scroll-cue" href="#contents">Begin the issue
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="contents section" id="contents" aria-label="Contents">
+      <div class="section-head">
+        <p class="eyebrow">In this issue</p>
+        <h2>Contents</h2>
+      </div>
+      <ol class="contents-grid">
+        <li class="front">
+          <a href="#state-of-the-program">
+            <div class="card">
+              <p class="eyebrow light">{letter.kicker}</p>
+              <h3>{letter.title}</h3>
+              <p>{letter.deck}. The year in the Executive Ed.D. community, and why the long work matters now.</p>
+            </div>
+          </a>
+        </li>
+        {featureSections.map(({ section, spec }) => (
+          <li>
+            <a href={`#${section.id}`}>
+              <div class="thumb"><Image src={images[spec.opener.src]} alt="" widths={[400, 800]} sizes="(max-width: 900px) 50vw, 25vw" format="webp" quality={70} /></div>
+              <div class="card">
+                <div class="num">{spec.number}</div>
+                <h3>{section.title}</h3>
+                <p>{spec.deck}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <article class="letter section" id={state.id} data-section>
+      <div class="section-head">
+        <p class="eyebrow">{letter.kicker}</p>
+        <h2>{letter.title}</h2>
+        <p class="deck">{letter.deck}</p>
+        <div class="rule"></div>
+      </div>
+      <div class="letter-grid">
+        <aside class="letter-aside">
+          <blockquote class="pull-quote">
+            <p>{letter.pullQuote.text}</p>
+            <cite>{letter.pullQuote.source}</cite>
+          </blockquote>
+        </aside>
+        <div class="letter-body">
+          <Body blocks={letterBlocks} />
+          <p class="signature"><Image src={images[letter.signature.src]} alt={letter.signature.alt} width={260} format="png" /></p>
+        </div>
+      </div>
+    </article>
+
+    <figure class="interlude reveal">
+      <Image src={images[letter.interlude.src]} alt={letter.interlude.alt} widths={[800, 1400, 2000]} sizes="100vw" format="webp" quality={80} />
+      <figcaption>{letter.interlude.caption}<small>{letter.interlude.credit}</small></figcaption>
+    </figure>
+
+    <section class="invitation section" id={invite.id} data-section>
+      <div class="invitation-grid">
+        <h2>{invitation.title}</h2>
+        <div class="invitation-body">
+          <Body blocks={invite.blocks} />
+          <div class="gold-rule" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    {featureSections.map(({ section, spec }, i) => (
+      <article class="feature" id={section.id} data-section>
+        <header class={`opener${i % 2 === 1 ? ' flip' : ''}`}>
+          <div class="photo">
+            <Image src={images[spec.opener.src]} alt={spec.opener.alt} widths={[700, 1200, 1800]} sizes="(max-width: 800px) 100vw, 50vw" format="webp" quality={80} loading={i === 0 ? 'eager' : 'lazy'} />
+            {spec.opener.credit && <span class="credit">{spec.opener.credit}</span>}
+          </div>
+          <div class="titling">
+            <p class="eyebrow light">{spec.label}</p>
+            <div class="num">{spec.number}</div>
+            <h2>{section.title}</h2>
+            <p class="deck">{spec.deck}</p>
+          </div>
+        </header>
+        <div class="article section">
+          <div class="body clearfix">
+            <Body blocks={section.blocks} figures={spec.inline} />
+          </div>
+          {spec.closer && <Figure fig={spec.closer} widths={[900, 1600, 2400]} sizes="100vw" />}
+        </div>
+      </article>
+    ))}
+  </main>
+
+  <footer class="footer section" id="colophon">
+    <div class="footer-grid">
+      <div>
+        <h2>{meta.masthead}</h2>
+        <p>{meta.edition}. The annual magazine of the {meta.program} at {meta.institution}, {meta.school}.</p>
+        <p>Editorial material covers {meta.coverage}. C1 through C6 identify program cohorts. Links connect to original publications, posts, and institutional announcements.</p>
+      </div>
+      <div>
+        <h3>Credits</h3>
+        <p>Written and edited by Chris R. Glass, Program Director. Photographs courtesy of the students, alumni, and institutions credited with each image.</p>
+        <p>Typeset in Source Serif 4 and Open Sans, following the Boston College Magazine typographic direction.</p>
+      </div>
+      <div>
+        <h3>Read and share</h3>
+        <p><a href={meta.programUrl} target="_blank" rel="noopener">Executive Ed.D. in Higher Education</a></p>
+        {hasPdf && <p><a class="button" href={pdfHref}>Download the print edition (PDF)</a></p>}
+        <p><a href="#top">Back to top</a></p>
+      </div>
+    </div>
+    <div class="baseline">
+      <span>© 2026 Trustees of Boston College</span>
+      <span>{meta.masthead} · {meta.edition}</span>
+    </div>
+  </footer>
+
+  <button class="next-section" type="button" aria-label="Next section">
+    <span>Next</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </button>
+
+  <script src="../scripts/reader.ts"></script>
+</body>
+</html>
