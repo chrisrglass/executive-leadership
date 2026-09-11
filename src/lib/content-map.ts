@@ -31,7 +31,7 @@ export const cover = {
   image: 'bc-campus-gasson-boston.jpg',
   alt: 'Gasson Hall at Boston College with the Boston skyline behind it',
   theme: ['The Long Work', 'of Leading Well'],
-  lede: 'Higher education needs leaders who are strategic, future-focused, and for others.',
+  lede: 'Higher education needs leaders who are strategic, future-focused, in the service of others.',
   teasers: [
     { title: 'Scholarship in Public', blurb: 'From faculty burnout to AI, scholar-leaders turn urgent questions into arguments others can use.', href: '#scholarship-in-public' },
     { title: 'Towards the Greater', blurb: 'Provost, dean, and vice president appointments give judgment a wider field of consequence.', href: '#towards-the-greater' },
