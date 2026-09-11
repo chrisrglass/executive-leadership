@@ -108,3 +108,10 @@ export const features: Record<string, Feature> = {
 };
 
 export const featureOrder = Object.keys(features);
+
+// Short welcome piece that closes the issue (H1 "Welcome, Jess Belue Buckley" in articles.md).
+export const welcome = {
+  title: 'Welcome, Jess Belue Buckley',
+  kicker: 'New to the department',
+  portrait: { src: 'jessica-belue-buckley-bc.webp', alt: 'Jessica Belue Buckley', caption: 'Jessica Belue Buckley, Associate Professor of Higher Education.', credit: 'Courtesy of Boston College', align: 'right' as const, format: 'portrait' as const },
+};

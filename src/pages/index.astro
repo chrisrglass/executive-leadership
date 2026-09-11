@@ -9,7 +9,7 @@ import Body from '../components/Body.astro';
 import Figure from '../components/Figure.astro';
 import { images } from '../lib/images';
 import { parseMarkdown, sectionize, inline, plain } from '../lib/markdown';
-import { meta, cover, letter, invitation, features, featureOrder } from '../lib/content-map';
+import { meta, cover, letter, invitation, features, featureOrder, welcome } from '../lib/content-map';
 
 const info = sectionize(parseMarkdown(infoRaw));
 const articles = sectionize(parseMarkdown(articlesRaw));
@@ -27,10 +27,12 @@ const featureSections = featureOrder.map((title) => {
   return { section, spec: features[title] };
 });
 
+const welcomeSection = byTitle.get(welcome.title);
 const navItems = [
   { label: 'Letter', id: 'state-of-the-program' },
   ...featureSections.map(({ section, spec }) => ({ label: `${spec.number} ${section.title}`, id: section.id })),
   { label: 'Join us', id: 'who-should-join-us-next' },
+  ...(welcomeSection ? [{ label: 'Welcome', id: welcomeSection.id }] : []),
 ];
 
 const coverImage = await getImage({ src: images[cover.image], widths: [900, 1600, 2400], sizes: '100vw', format: 'webp', quality: 78 });
@@ -83,13 +85,12 @@ const canonical = new URL(`${base}/`, Astro.site).href;
           <p class="edition">{meta.edition}</p>
           <p class="program">{meta.institution} • {meta.program}</p>
         </div>
-        <ul class="cover-teasers">
-          {cover.teasers.map((t) => <li><a href={t.href}><strong>{t.title}</strong><span>{t.blurb}</span></a></li>)}
-        </ul>
       </div>
       <div class="cover-theme">
-        <h2>{cover.theme[0]}<br />{cover.theme[1]}</h2>
-        <p>{cover.lede}</p>
+        <div class="cover-panel">
+          <h2>{cover.theme[0]}<br />{cover.theme[1]}</h2>
+          <p>{cover.lede}</p>
+        </div>
         <a class="scroll-cue" href="#contents">Begin the issue
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </a>
@@ -184,6 +185,22 @@ const canonical = new URL(`${base}/`, Astro.site).href;
         </div>
       </article>
     ))}
+
+    {welcomeSection && (
+      <article class="welcome section" id={welcomeSection.id} data-section>
+        <div class="section-head">
+          <p class="eyebrow">{welcome.kicker}</p>
+          <h2>{welcomeSection.title}</h2>
+          <div class="rule"></div>
+        </div>
+        <div class="article">
+          <div class="body clearfix">
+            <Figure fig={welcome.portrait} widths={[350, 700]} sizes="(max-width: 900px) 40vw, 220px" />
+            <Body blocks={welcomeSection.blocks} />
+          </div>
+        </div>
+      </article>
+    )}
   </main>
 
   <footer class="footer section" id="colophon">
