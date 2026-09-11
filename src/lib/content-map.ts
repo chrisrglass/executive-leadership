@@ -94,6 +94,7 @@ export const features: Record<string, Feature> = {
     deck: 'Appointments in academic, mission, enrollment, and operational leadership give judgment a wider field of consequence.',
     opener: { src: 'keith-maczkiewicz-holy-cross.jpg', alt: 'Keith Maczkiewicz, SJ, celebrating Mass at the College of the Holy Cross', credit: 'Courtesy of the College of the Holy Cross', format: 'landscape' },
     inline: [],
+    closer: { src: 'mauricio-pope-leo.jpg', alt: 'Mauricio López Oropeza shaking hands with Pope Leo XIV, with cardinals standing behind them', caption: 'Mauricio López Oropeza (C4) greets Pope Leo XIV.', credit: 'Courtesy of Mauricio López Oropeza', align: 'wide', format: 'landscape' },
   },
   'After the Defense': {
     number: '04',
