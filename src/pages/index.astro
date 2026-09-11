@@ -28,12 +28,7 @@ const featureSections = featureOrder.map((title) => {
 });
 
 const welcomeSection = byTitle.get(welcome.title);
-const navItems = [
-  { label: 'Letter', id: 'state-of-the-program' },
-  ...featureSections.map(({ section, spec }) => ({ label: `${spec.number} ${section.title}`, id: section.id })),
-  { label: 'Join us', id: 'who-should-join-us-next' },
-  ...(welcomeSection ? [{ label: 'Welcome', id: welcomeSection.id }] : []),
-];
+const navItems = featureSections.map(({ section, spec }) => ({ label: `${spec.number} ${section.title}`, id: section.id }));
 
 const coverImage = await getImage({ src: images[cover.image], widths: [900, 1600, 2400], sizes: '100vw', format: 'webp', quality: 78 });
 const ogImage = await getImage({ src: images[cover.image], width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
