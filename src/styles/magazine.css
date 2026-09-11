@@ -108,10 +108,10 @@ p { margin: 0 0 1.1em; }
 .cover-teasers strong { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 600; letter-spacing: 0; margin-bottom: 0.15rem; }
 .cover-teasers span { font-size: 0.8rem; line-height: 1.4; color: rgba(255,255,255,0.88); }
 .cover-teasers a:hover strong { text-decoration: underline; text-decoration-color: var(--gold); }
-.cover-theme { text-align: center; padding: 2rem var(--gutter) clamp(2rem, 6vh, 4rem); }
+.cover-theme { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2rem var(--gutter) clamp(2rem, 6vh, 4rem); }
 .cover-theme h2 { font-family: var(--display); font-size: clamp(2.6rem, 6.5vw, 5.2rem); line-height: 1.02; font-weight: 400; }
 .cover-theme p { font-family: var(--sans); font-size: clamp(0.9rem, 1.4vw, 1.05rem); max-width: 34rem; margin: 1.25rem auto 0; color: rgba(255,255,255,0.92); }
-.cover-theme .scroll-cue { display: inline-flex; flex-direction: column; align-items: center; gap: 0.35rem; margin-top: 2rem; color: var(--gold-light); font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; }
+.cover-theme .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; margin-top: 2rem; color: var(--gold-light); font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; }
 .cover-theme .scroll-cue svg { width: 18px; height: 18px; }
 @media (max-width: 760px) {
   .cover-top { grid-template-columns: 1fr; }
