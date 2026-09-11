@@ -81,7 +81,7 @@ export const features: Record<string, Feature> = {
     number: '02',
     label: 'Institutional change',
     deck: 'Leaders make values durable through regulation, educational pathways, public memory, and institutional practice.',
-    opener: { src: 'jen-pollard.jpg', alt: 'Jen Pollard', credit: 'Courtesy of Jen Pollard', format: 'portrait' },
+    opener: { src: 'arevik-ohanyan.jpg', alt: 'Arevik Ohanyan', credit: 'Courtesy of Arevik Ohanyan', format: 'portrait' },
     inline: [
       { after: 'Olga Nazaykinskaya (C2) published research', src: 'olga-nazaykinskaya-rectors-school.jpg', alt: 'Olga Nazaykinskaya speaking at the Rectors’ School', caption: 'Olga Nazaykinskaya (C2) at the Rectors’ School.', align: 'left', format: 'landscape' },
       { after: 'Florida State University Libraries chose', src: 'katie-mccormick-emmett-till-records-fsu.jpg', alt: 'A handwritten document from the Emmett Till trial records', caption: 'A record from the Emmett Till trial, acquired by FSU Libraries in 2026.', credit: 'Courtesy of Florida State University Libraries', align: 'right', format: 'landscape' },
